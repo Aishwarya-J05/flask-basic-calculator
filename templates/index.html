@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1e1e2f;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #2d2d44;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 320px;
+        }
+
+        .display {
+            background-color: #121222;
+            color: #fff;
+            padding: 15px;
+            font-size: 24px;
+            border-radius: 10px;
+            text-align: right;
+            margin-bottom: 20px;
+            min-height: 50px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #444;
+            color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #666;
+        }
+
+        .operator {
+            background-color: #ff7b00;
+        }
+
+        .operator:hover {
+            background-color: #ffa042;
+        }
+
+        .equal {
+            background-color: #28a745;
+        }
+
+        .equal:hover {
+            background-color: #38c771;
+        }
+
+        .clear {
+            background-color: #dc3545;
+        }
+
+        .clear:hover {
+            background-color: #e66775;
+        }
+
+        .long-button {
+            grid-column: span 2;
+        }
+
+        .bottom-row {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <form method="POST" id="calc-form">
+            <div class="display" id="display">{{ result if result else "" }}</div>
+            <input type="hidden" name="expression" id="expression">
+            <div class="buttons">
+                <button type="button" onclick="append('7')">7</button>
+                <button type="button" onclick="append('8')">8</button>
+                <button type="button" onclick="append('9')">9</button>
+                <button type="button" class="operator" onclick="append('/')">÷</button>
+
+                <button type="button" onclick="append('4')">4</button>
+                <button type="button" onclick="append('5')">5</button>
+                <button type="button" onclick="append('6')">6</button>
+                <button type="button" class="operator" onclick="append('*')">×</button>
+
+                <button type="button" onclick="append('1')">1</button>
+                <button type="button" onclick="append('2')">2</button>
+                <button type="button" onclick="append('3')">3</button>
+                <button type="button" class="operator" onclick="append('-')">−</button>
+
+                <button type="button" onclick="append('0')">0</button>
+                <button type="button" onclick="append('.')">.</button>
+                <button type="button" class="operator long-button" onclick="append('+')">+</button>
+
+                <!-- Bottom row: Clear and Equal -->
+                <button type="button" class="clear bottom-row" onclick="clearDisplay()">C</button>
+                <button type="submit" class="equal bottom-row">=</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let expressionInput = document.getElementById('expression');
+
+        function append(value) {
+            display.textContent += value;
+            expressionInput.value = display.textContent;
+        }
+
+        function clearDisplay() {
+            display.textContent = '';
+            expressionInput.value = '';
+        }
+    </script>
+</body>
+</html>
